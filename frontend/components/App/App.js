@@ -36,8 +36,12 @@ const App = () => {
         - otherwise just return the post object unchanged.
      */
     setPosts(posts.map(post => {
-      if (post.id === postId) {
-        return { ...post, likes: post.likes + 1 }
+      if (post.id === postId && !post.liked) {
+        let newPost = { ...post };
+        newPost.likes = post.likes + 1;
+        newPost.liked = true;
+        console.log(newPost);
+        return newPost;
       }
       return post;
     }))
@@ -48,7 +52,7 @@ const App = () => {
       {/* Add SearchBar and Posts here to render them */}
       {/* Check the implementation of each component, to see what props they require, if any! */}
       <SearchBar />
-      <Posts />
+      <Posts likePost={likePost} posts={posts} />
     </div>
   );
 };
